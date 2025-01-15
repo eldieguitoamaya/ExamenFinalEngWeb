@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ApiService } from '../Services/api.service';
+import { SessionService } from '../Services/session.service';
 import { Title } from '@angular/platform-browser';
 import { Jersey } from '../models/Jersey';
 import { JerseyComponent } from "../jersey/jersey.component";
@@ -17,13 +18,24 @@ import { forkJoin } from 'rxjs';
 export class HomeComponent implements OnInit {
    jerseys: Jersey[] = [];
   apiService = inject(ApiService);
+  sessionService = inject(SessionService);
   titleService = inject(Title);
 
   constructor() { }
 
   ngOnInit(): void {
     this.titleService.setTitle('RetroScore | Home');
+    this.createVisitRecord();
     this.loadJerseys();
+  }
+
+  private createVisitRecord(): void {
+    const sessionId = this.sessionService.getSessionId();
+    const userId = this.apiService.getLoggedInUser()?._id || null;
+    const llocEvent = 'Home';
+    const tipusEvent = 'visita';
+
+    this.apiService.createStatistic({ sessionId, userId, llocEvent, tipusEvent }).subscribe();
   }
 
   loadJerseys(): void {

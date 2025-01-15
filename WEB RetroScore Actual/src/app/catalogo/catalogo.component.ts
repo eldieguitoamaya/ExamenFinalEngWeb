@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { SidebarFilterComponent } from '../sidebar-filter/sidebar-filter.component';
 import { JerseyComponent } from '../jersey/jersey.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { SessionService } from '../Services/session.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -18,12 +19,14 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 export class CatalogoComponent implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute);
   apiService = inject(ApiService);
+  sessionService = inject(SessionService);
   private titleService = inject(Title);
   jerseys = signal<Jersey[]>([]); // Signal = Reactive variable that can be subscribed to
   filteredJerseys = signal<Jersey[]>([]);
 
   ngOnInit(): void {
     this.titleService.setTitle('RetroScore | Catálogo');
+    this.createVisitRecord();
     this.loadShirts();
     this.route.queryParams.subscribe(params => {
       const teamName = params['team'];
@@ -31,6 +34,14 @@ export class CatalogoComponent implements OnInit {
         this.onSearch(teamName);
       }
     });
+  }
+  private createVisitRecord(): void {
+  const sessionId = this.sessionService.getSessionId();
+    const userId = this.apiService.getLoggedInUser()?._id || null;
+    const llocEvent = 'Catalogo';
+    const tipusEvent = 'visita';
+
+    this.apiService.createStatistic({ sessionId, userId, llocEvent, tipusEvent }).subscribe();
   }
 
   loadShirts(): void {
