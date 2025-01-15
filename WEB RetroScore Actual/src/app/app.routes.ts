@@ -8,6 +8,8 @@ import { TallajeComponent } from './tallaje/tallaje.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ProfileComponent } from './profile/profile.component';
 import { JerseyContainerComponent } from './jersey-container/jersey-container.component';
+import { EventsComponent } from './events/events.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 export const routes: Routes = [
   {
@@ -16,9 +18,19 @@ export const routes: Routes = [
     title: 'Home'
   },
   {
+    path: 'statistics',
+    component: StatisticsComponent,
+    title: 'Statistics'
+  },
+  {
     path: 'header',
     component: HeaderComponent,
     title: 'Header'
+  },
+  {
+    path: 'events',
+    component: EventsComponent,
+    title: 'Events'
   },
   {
     path: 'footer',

@@ -60,7 +60,7 @@ export class ApiService {
   }
 
   createStatistic(statistics: any): Observable<any> {
-    return this.http.post<Statistics>(`${this.apiUrl}/statistics`, statistics);
+    return this.http.post<Statistics>(`${this.apiUrl}/Statistics`, statistics);
   }
 
   createJersey(jersey: any): Observable<any> {
