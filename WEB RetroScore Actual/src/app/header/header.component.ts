@@ -5,6 +5,7 @@ import { PopupService } from '../Services/popup.service';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { ApiService } from '../Services/api.service';
 import { Jersey } from '../models/Jersey';
+import { Statistics } from '..models/Statistics';
 
 @Component({
   selector: 'app-header',
@@ -60,6 +61,7 @@ export class HeaderComponent implements OnInit {
     { path: '/catalogo', label: 'Catálogo' },
     { path: '/tallaje', label: 'Tallaje' },
     { path: '/about-us', label: 'Sobre Nosotros' },
-    { path: '/cesta', label: 'Cesta' }
+    { path: '/cesta', label: 'Cesta' },
+    { path: '/statistics', label: 'Estadísticas' }
   ];
 }

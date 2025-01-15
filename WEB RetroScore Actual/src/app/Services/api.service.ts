@@ -18,8 +18,15 @@ export class ApiService {
   private sessionId: string;
 
   constructor() {
-    this.sessionId = this.generateSessionId();
+    this.initializeSession();
     this.loadCurrentUser();
+  }
+
+  private initializeSession() {
+    if (!this.sessionId) {
+        this.sessionId = this.generateSessionId();
+        console.log('Session ID generado:', this.sessionId); // Log para verificar
+    }
   }
 
   private generateSessionId(): string {
@@ -60,11 +67,11 @@ export class ApiService {
   }
 
   createStatistic(statistics: any): Observable<any> {
-    return this.http.post<Statistics>(`${this.apiUrl}/Statistics`, statistics);
+    return this.http.post<Statistics>(`${this.apiUrl}/statistics`, statistics);
   }
 
   getLastStatistics(filters: { dataInici?: string; dataFinal?: string; llocEvent?: string; tipusEvent?: string } = {}): Observable<Statistics[]> {
-    return this.http.get<Statistics[]>(`${this.apiUrl}/Statistics/last`, { params: filters });
+    return this.http.get<Statistics[]>(`${this.apiUrl}/statistics/last`, { params: filters });
   }
 
   createJersey(jersey: any): Observable<any> {

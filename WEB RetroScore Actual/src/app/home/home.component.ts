@@ -23,18 +23,22 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('RetroScore | Home');
-    this.createVisitRecord();
     this.loadJerseys();
+    const event = {
+      sessionId: this.sessionService.getSessionId(),
+      userId: null, // Ajusta esto si tienes un usuario logueado
+      llocEvent: 'HomePage', // Identificador de la página
+      tipusEvent: 'visita', // Tipo de evento
+    };
+    console.log('Evento enviado al backend:', event);
+
+    // Enviar el evento al backend
+    this.apiService.createEvent(event).subscribe((response) => {
+        console.log('Respuesta del backend:', response);
+    });
   }
 
-  private createVisitRecord(): void {
-    const sessionId = this.apiService.getSessionId();
-    const userId = this.apiService.getLoggedInUser()?._id || null;
-    const llocEvent = 'Home';
-    const tipusEvent = 'visita';
-
-    this.apiService.createStatistic({ sessionId, userId, llocEvent, tipusEvent }).subscribe();
-  }
+ 
 
   loadJerseys(): void {
     const teams = ['Real Madrid', 'FC Barcelona', 'Manchester United', 'Juventus']; // Reemplaza con los nombres de los equipos que deseas cargar
