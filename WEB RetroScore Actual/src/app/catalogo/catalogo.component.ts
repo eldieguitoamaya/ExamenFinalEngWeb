@@ -7,7 +7,6 @@ import { Title } from '@angular/platform-browser';
 import { SidebarFilterComponent } from '../sidebar-filter/sidebar-filter.component';
 import { JerseyComponent } from '../jersey/jersey.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { SessionService } from '../Services/session.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -19,7 +18,6 @@ import { SessionService } from '../Services/session.service';
 export class CatalogoComponent implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute);
   apiService = inject(ApiService);
-  sessionService = inject(SessionService);
   private titleService = inject(Title);
   jerseys = signal<Jersey[]>([]); // Signal = Reactive variable that can be subscribed to
   filteredJerseys = signal<Jersey[]>([]);
@@ -36,7 +34,7 @@ export class CatalogoComponent implements OnInit {
     });
   }
   private createVisitRecord(): void {
-  const sessionId = this.sessionService.getSessionId();
+  const sessionId = this.apiService.getSessionId();
     const userId = this.apiService.getLoggedInUser()?._id || null;
     const llocEvent = 'Catalogo';
     const tipusEvent = 'visita';

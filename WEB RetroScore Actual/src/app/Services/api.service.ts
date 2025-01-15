@@ -6,6 +6,7 @@ import { Jersey } from '../models/Jersey';
 import { Jerseys } from '../models/Jerseys';
 import { Cart } from '../models/Cart';
 import { Users } from '../models/Users';
+import { Statistics} from '../models/Statistics';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,19 @@ export class ApiService {
   private apiUrl = 'http://localhost:3000';
   private http = inject(HttpClient);
   private currentUser: Users | null = null;
+  private sessionId: string;
 
   constructor() {
+    this.sessionId = this.generateSessionId();
     this.loadCurrentUser();
+  }
+
+  private generateSessionId(): string {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  }
+
+  getSessionId(): string {
+    return this.sessionId;
   }
 
   private loadCurrentUser(): void {

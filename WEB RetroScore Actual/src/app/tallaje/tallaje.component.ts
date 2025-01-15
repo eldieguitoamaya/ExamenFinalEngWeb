@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ApiService } from '../Services/api.service';
-import { SessionService } from '../Services/session.service';
 
 @Component({
   selector: 'app-tallaje',
@@ -14,7 +13,6 @@ import { SessionService } from '../Services/session.service';
 export class TallajeComponent implements OnInit {
   private titleService = inject(Title);
   private apiService = inject(ApiService);
-  private sessionService = inject(SessionService);
 
   showFAQ: boolean = false;
 
@@ -24,7 +22,7 @@ export class TallajeComponent implements OnInit {
   }
 
   private createVisitRecord(): void {
-    const sessionId = this.sessionService.getSessionId();
+    const sessionId = this.apiService.getSessionId();
     const userId = this.apiService.getLoggedInUser()?._id || null;
     const llocEvent = 'Tallaje';
     const tipusEvent = 'visita';
