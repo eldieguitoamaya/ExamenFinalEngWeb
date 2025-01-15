@@ -68,6 +68,8 @@ export class CatalogoComponent implements OnInit {
       quantity: 1
     };
 
+    this.createClickRecord();
+
     console.log('Obteniendo la cesta para el usuario:', user._id);
     this.apiService.getCartByUser(user._id).subscribe({
       next: (cart) => {
@@ -108,6 +110,16 @@ export class CatalogoComponent implements OnInit {
         alert('Hubo un error al añadir el item a la cesta. Inténtalo de nuevo.');
       }
     });
+  }
+
+  private createClickRecord(): void {
+    const sessionId = this.apiService.getSessionId();
+    const userId = this.apiService.getLoggedInUser()?._id || null;
+    const llocEvent = 'Catalogo';
+    const tipusEvent = 'click';
+  
+    this.apiService.createStatistic({ sessionId, userId, llocEvent, tipusEvent }).subscribe();
+    console.log('Click registrado'+sessionId+'en'+llocEvent);
   }
 
   onFilterChanged(filter: any): void {

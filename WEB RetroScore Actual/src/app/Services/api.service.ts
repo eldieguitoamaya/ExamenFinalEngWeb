@@ -59,6 +59,10 @@ export class ApiService {
     );
   }
 
+  createStatistic(statistics: any): Observable<any> {
+    return this.http.post<Statistics>(`${this.apiUrl}/statistics`, statistics);
+  }
+
   createJersey(jersey: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/Jerseys`, jersey);
   }
