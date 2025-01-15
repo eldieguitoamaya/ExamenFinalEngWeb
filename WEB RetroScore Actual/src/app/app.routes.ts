@@ -20,7 +20,7 @@ export const routes: Routes = [
   {
     path: 'statistics',
     component: StatisticsComponent,
-    title: 'Statistics'
+    title: 'statistics'
   },
   {
     path: 'header',

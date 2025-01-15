@@ -15,7 +15,7 @@ export class ApiService {
   private apiUrl = 'http://localhost:3000';
   private http = inject(HttpClient);
   private currentUser: Users | null = null;
-  private sessionId: string;
+  private sessionId: string = this.generateSessionId();
 
   constructor() {
     this.initializeSession();

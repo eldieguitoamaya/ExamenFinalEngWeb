@@ -5,7 +5,7 @@ import { PopupService } from '../Services/popup.service';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { ApiService } from '../Services/api.service';
 import { Jersey } from '../models/Jersey';
-import { Statistics } from '..models/Statistics';
+import { Statistics } from '../models/Statistics';
 
 @Component({
   selector: 'app-header',

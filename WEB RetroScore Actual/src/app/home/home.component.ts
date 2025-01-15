@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     this.titleService.setTitle('RetroScore | Home');
     this.loadJerseys();
     const event = {
-      sessionId: this.sessionService.getSessionId(),
+      sessionId: this.apiService.getSessionId(),
       userId: null, // Ajusta esto si tienes un usuario logueado
       llocEvent: 'HomePage', // Identificador de la página
       tipusEvent: 'visita', // Tipo de evento
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     console.log('Evento enviado al backend:', event);
 
     // Enviar el evento al backend
-    this.apiService.createEvent(event).subscribe((response) => {
+    this.apiService.createStatistic(event).subscribe((response) => {
         console.log('Respuesta del backend:', response);
     });
   }
