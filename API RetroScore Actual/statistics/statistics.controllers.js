@@ -18,9 +18,11 @@ const getStatistics = async (req, res) => {
   if (dataFinal) filters.createdAt = { ...filters.createdAt, $lte: new Date(dataFinal) };
   if (llocEvent) filters.llocEvent = llocEvent;
   if (tipusEvent) filters.tipusEvent = tipusEvent;
-
+    
   try {
     const statistics = await StatisticsModel.find(filters);
+    const visits = statistics.filter(statistic => statistic.tipusEvent === 'visita').length;
+    const clicks = statistics.filter(statistic => statistic.tipusEvent === 'click').length;
     res.status(200).json(statistics);
   } catch (error) {
     res.status(500).json({ message: error.message });

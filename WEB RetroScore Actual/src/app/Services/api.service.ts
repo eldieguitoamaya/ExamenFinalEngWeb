@@ -63,6 +63,10 @@ export class ApiService {
     return this.http.post<Statistics>(`${this.apiUrl}/Statistics`, statistics);
   }
 
+  getLastStatistics(filters: { dataInici?: string; dataFinal?: string; llocEvent?: string; tipusEvent?: string } = {}): Observable<Statistics[]> {
+    return this.http.get<Statistics[]>(`${this.apiUrl}/Statistics/last`, { params: filters });
+  }
+
   createJersey(jersey: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/Jerseys`, jersey);
   }

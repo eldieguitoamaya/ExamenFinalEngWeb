@@ -1,20 +1,20 @@
-import { Component } from '@angular/core';
 import { Component, OnInit, inject } from '@angular/core';
-import { ApiService } from '../Services/api.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ApiService } from '../Services/api.service';
+import { Statistics } from '../models/Statistics';
 
 @Component({
   selector: 'app-statistics',
   standalone: true,
   imports: [],
   templateUrl: './statistics.component.html',
-  styleUrl: './statistics.component.css'
+  styleUrls: ['./statistics.component.css']
 })
-export class StatisticsComponent {
+export class StatisticsComponent implements OnInit {
   private apiService = inject(ApiService);
   private fb = inject(FormBuilder);
   statisticsForm: FormGroup;
-  statistics: any[] = [];
+  statistics: Statistics[] = [];
 
   ngOnInit(): void {
     this.statisticsForm = this.fb.group({
@@ -27,9 +27,8 @@ export class StatisticsComponent {
 
   onSubmit(): void {
     const filters = this.statisticsForm.value;
-    this.apiService.getStatistics(filters).subscribe(statistics => {
+    this.apiService.getLastStatistics(filters).subscribe(statistics => {
       this.statistics = statistics;
     });
   }
 }
-
