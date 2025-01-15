@@ -2,6 +2,8 @@ const express = require('express');
 const { usersRouter } = require('./users/users.routes.js');
 const { jerseyRouter } = require('./Jerseys/jersey.routes.js');
 const { cartRouter } = require('./users/cart/cart.routes.js');
+const { statisticsRouter } = require('./statistics/statistics.routes.js');
+
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -41,6 +43,7 @@ const startServer = async () => {
         app.use('/Users', usersRouter);
         app.use('/Jerseys', jerseyRouter);
         app.use('/cart', cartRouter);
+        app.use('/statistics', statisticsRouter);
 
         // Inicialización del servidor
         app.listen(PORT, async () => {
